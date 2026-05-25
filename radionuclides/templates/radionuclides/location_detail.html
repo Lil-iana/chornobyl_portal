@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ location.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        h1 { color: #2c3e50; }
+        nav a { margin-right: 15px; color: #2980b9; text-decoration: none; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th { background: #2c3e50; color: white; padding: 12px; text-align: left; }
+        td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f9f9f9; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; background: #e74c3c; color: white; }
+        h2 { color: #2c3e50; margin-top: 30px; }
+        .back { display: inline-block; margin-top: 20px; color: #2980b9; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'index' %}">Головна</a>
+        <a href="{% url 'location-list' %}">Точки відбору</a>
+        <a href="/admin">Адмін</a>
+    </nav>
+    <h1>{{ location.name }}</h1>
+    <p>Тип ландшафту: <strong>{{ location.landscape_type }}</strong></p>
+    <p>Координати: {{ location.latitude }}, {{ location.longitude }}</p>
+
+    {% for sample in samples %}
+    <h2>Рік: {{ sample.year }}</h2>
+    <table>
+        <tr>
+            <th>Радіонуклід</th>
+            <th>Концентрація (Бк/кг)</th>
+            <th>Похибка (±)</th>
+        </tr>
+        {% for m in sample.measurements.all %}
+        <tr>
+            <td><span class="badge">{{ m.radionuclide }}</span></td>
+            <td>{{ m.concentration }}</td>
+            <td>{{ m.uncertainty }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
+
+    <a href="{% url 'location-list' %}" class="back">← Назад до списку</a>
+</body>
+</html>
