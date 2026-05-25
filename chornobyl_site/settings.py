@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f#k1##!vw+y3*7#e_y0m^7+jd9%kl*1o%$#j%^@6f2x2!i)1$y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chornobylportal-production.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
